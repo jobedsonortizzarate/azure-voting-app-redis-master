@@ -10,7 +10,8 @@ pipeline {
 
       stage('Docker Build') {
          steps {
-            powershell(script: 'docker images -a')
+            echo "alias powershell=pwsh" >> /Users/`(whoami)`/.profile . /Users/`(whoami)`/.profile
+            pwsh(script: 'docker images -a')
             
          }
       }
