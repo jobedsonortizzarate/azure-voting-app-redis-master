@@ -10,7 +10,7 @@ pipeline {
 
       stage('Docker Build') {
          steps {
-            sh "/usr/local/bin/pwsh -Command \"Get-Host | Select-Object Version\""
+            sh "docker imagen ls"
             
             
          }
