@@ -10,7 +10,7 @@ pipeline {
 
       stage('Docker Build') {
          steps {
-            sh "docker imagen ls"
+            sh "docker image ls"
             
             
          }
