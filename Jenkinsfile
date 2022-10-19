@@ -12,7 +12,7 @@ pipeline {
          steps {
             sh "ls"
             sh "pwd"
-            sh "cd ./azure-vote/"
+            sh "cd azure-vote"
             sh "pwd"
             sh "ls"
             sh "docker images -a"
