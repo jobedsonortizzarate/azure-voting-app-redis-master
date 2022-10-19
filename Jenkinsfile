@@ -10,8 +10,8 @@ pipeline {
 
       stage('Docker Build') {
          steps {
-            
-            sh "/usr/local/bin/pwsh -Command \"Get-Host | Select-Object Version\""
+            echo "alias powershell=pwsh" >> /Users/`(whoami)`/.profile . /Users/`(whoami)`/.profile
+            pwsh(script: 'docker images -a')
             
          }
       }
