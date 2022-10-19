@@ -10,10 +10,10 @@ pipeline {
 
       stage('Docker Build') {
          steps {
-            sh "ls
-            pwd
+            sh "ls; 
+            pwd;
             cd '/var/lib/jenkins/workspace/Voting app pipeline/azure-vote';
-            pwd
+            pwd;
             ls"
             sh "docker images -a"
             sh "docker build -t jenkins-pipeline ./azure-vote/."
