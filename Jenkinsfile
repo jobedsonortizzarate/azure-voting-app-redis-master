@@ -13,9 +13,9 @@ pipeline {
             sh "'docker images -a'"
             sh """
             cd azure-vote
-            docker images -a
-            docker build -t jenkins-pipeline .
-            docker images -a
+            'docker images -a'
+            'docker build -t jenkins-pipeline .'
+            'docker images -a'
             cd ..
             """
          }
