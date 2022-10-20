@@ -21,7 +21,8 @@ pipeline {
          steps {
             sh(script: """
                docker-compose up -d
-               scripts/test_container.sh
+               chmod +x -R ${env.WORKSPACE}
+               ./scripts/test_container.sh
             """)
          }
          post {
