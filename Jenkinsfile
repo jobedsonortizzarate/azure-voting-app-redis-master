@@ -22,7 +22,7 @@ pipeline {
             sh(script: """
                docker-compose up -d
                cd scripts
-               test_container.sh
+               ./test_container.sh
             """)
          }
          post {
