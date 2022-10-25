@@ -2,7 +2,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: azure-vote-back
-namespace: ns-sc-0001-siaraf  
+  namespace: ns-sc-0001-siaraf  
 spec:
   replicas: 1
   template:
@@ -23,7 +23,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: azure-vote-back
-namespace: ns-sc-0001-siaraf  
+  namespace: ns-sc-0001-siaraf  
 spec:
   ports:
   - port: 6379
@@ -34,7 +34,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: azure-vote-front
-namespace: ns-sc-0001-siaraf  
+  namespace: ns-sc-0001-siaraf  
 spec:
   replicas: 1
   strategy:
@@ -67,7 +67,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: azure-vote-front
-namespace: ns-sc-0001-siaraf  
+  namespace: ns-sc-0001-siaraf  
 spec:
   type: LoadBalancer
   ports:
