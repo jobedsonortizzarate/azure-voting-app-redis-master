@@ -1,17 +1,21 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-vote-back
   namespace: ns-sc-0001-siaraf  
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: azure-vote-back 
+
   template:
     metadata:
       labels:
         app: azure-vote-back
     spec:
       nodeSelector:
-        "beta.kubernetes.io/os": linux
+        "kubernetes.io/os": linux
       containers:
       - name: azure-vote-back
         image: redis
@@ -30,13 +34,16 @@ spec:
   selector:
     app: azure-vote-back
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-vote-front
   namespace: ns-sc-0001-siaraf  
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: azure-vote-front 
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -48,10 +55,10 @@ spec:
         app: azure-vote-front
     spec:
       nodeSelector:
-        "beta.kubernetes.io/os": linux
+        "kubernetes.io/os": linux
       containers:
       - name: azure-vote-front
-        image: blackdentech/jenkins-course:latest
+        image: acrindep.azurecr.io/siaraf/azure-vote-front:v1
         ports:
         - containerPort: 80
         resources:
