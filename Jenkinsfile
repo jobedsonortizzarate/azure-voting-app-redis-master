@@ -68,6 +68,22 @@ pipeline {
          }
       }
 
+      stage('Deploy to QA') {
+         environment {
+            ENVIRONMENT = 'qa'
+         }
+         steps {
+            echo "Deploying to ${ENVIRONMENT}"
+            acsDeploy(
+               azureCredentialsId: "jenkins_demo",
+               configFilePaths: "**/*.yaml",
+               containerService: "${ENVIRONMENT}-demo-cluster | AKS",
+               resourceGroupName: "${ENVIRONMENT}-demo",
+               sshCredentialsId: ""
+            )
+         }
+      }
+
    }
    
 }
