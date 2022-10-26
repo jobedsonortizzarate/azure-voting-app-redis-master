@@ -84,13 +84,13 @@ pipeline {
       stage('Push container.') {
          environment {
             ENVIRONMENT = 'qa'
+            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
          }
          steps {
             echo "Deploying to ${ENVIRONMENT}"
          
             sh(script: """
             # Update kubernetes deployment with new image.
-            WEB_IMAGE_NAME='${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}'
             kubectl set image deployment/azure-vote-front azure-vote-front=$WEB_IMAGE_NAME
             """)
 
