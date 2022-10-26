@@ -51,43 +51,46 @@ pipeline {
          }
       }
 
-      // stage('Push container') {
-      //    steps {
-      //       echo "Workspace is $WORKSPACE"
-      //       dir("$WORKSPACE/azure-vote")
-      //       {
-      //          script
-      //          {
-      //             docker.withRegistry('https://index.docker.io/v1/', 'DockerHub')
-      //             {
-      //                def image = docker.build('jobedson/demokenkins:latest')
-      //                image.push()
-      //             }
-      //          }
-      //       }
-      //    }
-      // }
-
       stage('Push container') {
          environment {
             WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
          }
          steps {
-            echo "ACR is ${ACR_LOGINSERVER}"
-            sh(script: """
-            # Build new image and push to ACR.
-            
-            docker build -t $WEB_IMAGE_NAME ./azure-vote
-            docker login ${ACR_LOGINSERVER} -u ${ACR_ID} -p ${ACR_PASSWORD}
-            docker push $WEB_IMAGE_NAME
-               """)
+            echo "Workspace is $WORKSPACE"
+            dir("$WORKSPACE/azure-vote")
+            {
+               script
+               {
+                  docker.withRegistry('https://acrindep.azurecr.io', 'acr-credentials')
+                  {
+                     def image = docker.build(${WEB_IMAGE_NAME})
+                     image.push()
+                  }
+               }
+            }
          }
       }
+
+      // stage('Push container') {
+      //    environment {
+      //       WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
+      //    }
+      //    steps {
+      //       echo "ACR is ${ACR_LOGINSERVER}"
+      //       sh(script: """
+      //       # Build new image and push to ACR.
+            
+      //       docker build -t $WEB_IMAGE_NAME ./azure-vote
+      //       docker login ${ACR_LOGINSERVER} -u ${ACR_ID} -p ${ACR_PASSWORD}
+      //       docker push $WEB_IMAGE_NAME
+      //          """)
+      //    }
+      // }
 
       stage('Deploying container.') {
          environment {
             ENVIRONMENT = 'qa'
-            
+            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
          }
          steps {
             echo "Deploying to ${ENVIRONMENT}"
