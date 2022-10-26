@@ -97,7 +97,7 @@ pipeline {
          
             sh(script: """
             # Update kubernetes deployment with new image.
-            kubectl set image deployment/azure-vote-front azure-vote-front=$WEB_IMAGE_NAME
+            kubectl set image deployment/azure-vote-front azure-vote-front=${WEB_IMAGE_NAME}
             """)
 
             // acsDeploy(
