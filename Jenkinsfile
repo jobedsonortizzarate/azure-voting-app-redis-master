@@ -69,11 +69,14 @@ pipeline {
       // }
 
       stage('Push container') {
+         environment {
+            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
+         }
          steps {
             echo "ACR is ${ACR_LOGINSERVER}"
             sh(script: """
             # Build new image and push to ACR.
-            WEB_IMAGE_NAME='${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}'
+            
             docker build -t $WEB_IMAGE_NAME ./azure-vote
             docker login ${ACR_LOGINSERVER} -u ${ACR_ID} -p ${ACR_PASSWORD}
             docker push $WEB_IMAGE_NAME
@@ -81,10 +84,10 @@ pipeline {
          }
       }
 
-      stage('Push container.') {
+      stage('Deploying container.') {
          environment {
             ENVIRONMENT = 'qa'
-            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
+            
          }
          steps {
             echo "Deploying to ${ENVIRONMENT}"
