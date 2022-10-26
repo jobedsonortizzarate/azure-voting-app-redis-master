@@ -63,7 +63,7 @@ pipeline {
                {
                   docker.withRegistry('https://acrindep.azurecr.io', 'acr-credentials')
                   {
-                     def image = docker.build(${WEB_IMAGE_NAME})
+                     def image = docker.build("$WEB_IMAGE_NAME")
                      image.push()
                   }
                }
