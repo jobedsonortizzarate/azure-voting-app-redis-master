@@ -87,28 +87,28 @@ pipeline {
       //    }
       // }
 
-      stage('Deploying container.') {
-         environment {
-            ENVIRONMENT = 'qa'
-            WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
-         }
-         steps {
-            echo "Deploying to ${ENVIRONMENT}"
+      // stage('Deploying container.') {
+      //    environment {
+      //       ENVIRONMENT = 'qa'
+      //       WEB_IMAGE_NAME="${ACR_LOGINSERVER}/siaraf/azure-vote-front:kube${BUILD_NUMBER}"
+      //    }
+      //    steps {
+      //       echo "Deploying to ${ENVIRONMENT}"
          
-            sh(script: """
-            # Update kubernetes deployment with new image.
-            kubectl set image deployment/azure-vote-front azure-vote-front=${WEB_IMAGE_NAME}
-            """)
+      //       sh(script: """
+      //       # Update kubernetes deployment with new image.
+      //       kubectl set image deployment/azure-vote-front azure-vote-front=${WEB_IMAGE_NAME}
+      //       """)
 
-            // acsDeploy(
-            //    azureCredentialsId: "jenkins_demo",
-            //    configFilePaths: "**/*.yaml",
-            //    containerService: "${ENVIRONMENT}-demo-cluster | AKS",
-            //    resourceGroupName: "${ENVIRONMENT}-demo",
-            //    sshCredentialsId: ""
-            // )
-         }
-      }
+      //       // acsDeploy(
+      //       //    azureCredentialsId: "jenkins_demo",
+      //       //    configFilePaths: "**/*.yaml",
+      //       //    containerService: "${ENVIRONMENT}-demo-cluster | AKS",
+      //       //    resourceGroupName: "${ENVIRONMENT}-demo",
+      //       //    sshCredentialsId: ""
+      //       // )
+      //    }
+      // }
 
    }
    
